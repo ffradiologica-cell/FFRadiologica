@@ -6,7 +6,7 @@
 <title>FFRadiologica — La radiologia diventa spettacolo</title>
 <meta name="description" content="FFRadiologica: divulgazione della radiologia con spettacoli dal vivo per le scuole, fumetti e oggetti a tema radiologico stampati in 3D." />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23FBFBF9'/%3E%3Cg fill='none' stroke='%2314140F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 25 C9 25 5 21 6 16 C4 12 7 8 11 8 C12 5 17 5 18 9 C22 8 26 11 25 16 C27 21 22 25 17 25 Z'/%3E%3Cpath d='M16 9 V25'/%3E%3Cpath d='M11 12 C9 13 9 16 11 17'/%3E%3Cpath d='M20 12 C23 13 23 17 20 18'/%3E%3Cpath d='M12 21 C10 20 9 18 10 16'/%3E%3Cpath d='M20 21 C22 20 23 18 22 16'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="icon" href="logo.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -69,6 +69,7 @@
   .brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.12rem;letter-spacing:-.02em;background:none;border:0;color:var(--ink);cursor:pointer;padding:0}
   .brand-mark{width:32px;height:32px;flex:0 0 auto;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);display:grid;place-items:center}
   .brand-mark svg{width:19px;height:19px}
+  .brand-logo{width:24px;height:24px;object-fit:contain}
 
   .menu{display:flex;align-items:center;gap:2px}
   .menu a{
@@ -244,14 +245,7 @@
   <nav class="nav wrap">
     <button class="brand" data-page="home" aria-label="FFRadiologica — home">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 25 C9 25 5 21 6 16 C4 12 7 8 11 8 C12 5 17 5 18 9 C22 8 26 11 25 16 C27 21 22 25 17 25 Z"/>
-          <path d="M16 9 V25"/>
-          <path d="M11 12 C9 13 9 16 11 17"/>
-          <path d="M20 12 C23 13 23 17 20 18"/>
-          <path d="M12 21 C10 20 9 18 10 16"/>
-          <path d="M20 21 C22 20 23 18 22 16"/>
-        </svg>
+        <img class="brand-logo" src="logo.png" alt="">
       </span>
       <span>FFRadiologica</span>
     </button>
@@ -467,7 +461,7 @@
   <div class="wrap foot">
     <div>
       <div class="brand" style="cursor:default;margin-bottom:8px">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 25 C9 25 5 21 6 16 C4 12 7 8 11 8 C12 5 17 5 18 9 C22 8 26 11 25 16 C27 21 22 25 17 25 Z"/><path d="M16 9 V25"/><path d="M11 12 C9 13 9 16 11 17"/><path d="M20 12 C23 13 23 17 20 18"/><path d="M12 21 C10 20 9 18 10 16"/><path d="M20 21 C22 20 23 18 22 16"/></svg></span>
+        <span class="brand-mark" aria-hidden="true"><img class="brand-logo" src="logo.png" alt=""></span>
         <span>FFRadiologica</span>
       </div>
       <small>La radiologia diventa spettacolo.</small>
