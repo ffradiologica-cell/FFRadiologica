@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FFRadiologica — La radiologia diventa spettacolo</title>
+<meta name="description" content="FFRadiologica: divulgazione della radiologia con spettacoli dal vivo per le scuole, fumetti e oggetti a tema radiologico stampati in 3D." />
+
+<link rel="icon" href="logo.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#FBFBF9;
+    --grid:#E7E7E1;
+    --ink:#141410;
+    --ink-2:#3A3A34;
+    --ink-dim:#5C5C54;
+    --ink-faint:#93938A;
+    --line:#141410;
+    --red:#DB3B28;
+    --radius:3px;
+    --maxw:1120px;
+    --shadow:4px 4px 0 rgba(20,20,15,1);
+    --shadow-sm:3px 3px 0 rgba(20,20,15,.92);
+    --ease:cubic-bezier(.2,.7,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:26px 26px;
+    font-family:"Instrument Sans", system-ui, -apple-system, sans-serif;
+    font-size:17px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:"Space Mono",monospace}
+
+  .eyebrow{
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-dim);display:inline-flex;align-items:center;gap:9px;
+  }
+  .eyebrow::before{content:"";width:9px;height:9px;background:var(--ink);flex:0 0 auto}
+
+  h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;line-height:1.02;margin:0;letter-spacing:-.025em}
+  h1{font-size:clamp(2.5rem,6.6vw,4.7rem)}
+  h2{font-size:clamp(1.9rem,3.8vw,2.9rem)}
+  h3{font-size:1.2rem;font-weight:700;letter-spacing:-.015em}
+  p{margin:0 0 1rem}
+  .lead{font-size:clamp(1.05rem,1.5vw,1.2rem);color:var(--ink-dim);max-width:60ch}
+
+  /* hand annotations */
+  .hand{font-family:"Caveat",cursive;color:var(--red);font-weight:600;line-height:1}
+
+  /* ---------- Header ---------- */
+  header{position:sticky;top:0;z-index:60;background:rgba(251,251,249,.86);backdrop-filter:blur(6px);border-bottom:1.5px solid var(--ink)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.12rem;letter-spacing:-.02em;background:none;border:0;color:var(--ink);cursor:pointer;padding:0}
+  .brand-mark{width:32px;height:32px;flex:0 0 auto;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);display:grid;place-items:center}
+  .brand-mark svg{width:19px;height:19px}
+  .brand-logo{width:24px;height:24px;object-fit:contain}
+
+  .menu{display:flex;align-items:center;gap:2px}
+  .menu a{
+    position:relative;font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.02em;
+    color:var(--ink-dim);padding:8px 12px;transition:color .18s var(--ease);
+  }
+  .menu a:hover{color:var(--ink)}
+  .menu a.active{color:var(--ink)}
+  .menu a.active::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2.5px;background:var(--red)}
+
+  .burger{display:none;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);width:42px;height:38px;cursor:pointer;color:var(--ink);align-items:center;justify-content:center}
+  .burger svg{width:22px;height:22px}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    font-family:"Instrument Sans";font-weight:600;font-size:.96rem;
+    padding:12px 20px;border-radius:var(--radius);border:1.5px solid var(--ink);
+    transition:transform .13s var(--ease),box-shadow .13s var(--ease),background .15s var(--ease),color .15s var(--ease);
+  }
+  .btn svg{width:16px;height:16px}
+  .btn-primary{background:var(--ink);color:#fff;box-shadow:var(--shadow)}
+  .btn-primary:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(20,20,15,1)}
+  .btn-primary:active{transform:translate(4px,4px);box-shadow:0 0 0 rgba(20,20,15,1)}
+  .btn-donate{background:var(--red);color:#fff;box-shadow:var(--shadow)}
+  .btn-donate:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(20,20,15,1)}
+  .btn-donate:active{transform:translate(4px,4px);box-shadow:0 0 0 rgba(20,20,15,1)}
+  .btn-ghost{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+  .btn-ghost:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(20,20,15,1)}
+  .btn-ghost:active{transform:translate(3px,3px);box-shadow:0 0 0}
+
+  /* ---------- Pages ---------- */
+  main{min-height:calc(100vh - 66px)}
+  .page{display:none}
+  .page.is-active{display:block;animation:fade .4s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  section{padding:76px 0}
+
+  /* ---------- Hero ---------- */
+  .hero{padding-top:64px;padding-bottom:56px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero h1{margin:20px 0 22px}
+  .circled{position:relative;display:inline-block;white-space:nowrap;z-index:0}
+  .circled::after{
+    content:"";position:absolute;left:-.08em;right:-.08em;bottom:.04em;height:.46em;
+    background:#F7D84A;z-index:-1;transform:scaleX(1);transform-origin:left center;
+  }
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+  .foot-hint{margin-top:26px;color:var(--ink-faint);font-family:"Space Mono",monospace;font-size:12.5px}
+
+  /* sketch frame */
+  .sketch{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+  .sketch-inner{
+    position:relative;border-radius:2px;overflow:hidden;aspect-ratio:5/6;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px;background-position:center;
+  }
+  .sketch-inner svg.xray{position:absolute;inset:0;width:100%;height:100%}
+  .xray .draw{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .xray .vert{fill:var(--ink)}
+  .xray .heart{fill:var(--red)}
+  .xray .redcircle{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round}
+  .sk-tag{position:absolute;font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--ink-dim)}
+  .sk-tag.tl{top:10px;left:12px}
+  .sk-tag.tr{top:10px;right:12px}
+  .sk-tag.bl{bottom:10px;left:12px}
+  .sk-hand{position:absolute;bottom:36px;right:14px;font-size:1.35rem;transform:rotate(-5deg)}
+  .sketch-cap{margin-top:12px;text-align:center;font-family:"Space Mono",monospace;font-size:11.5px;color:var(--ink-faint)}
+
+  /* ---------- Section head ---------- */
+  .sec-head{max-width:64ch;margin-bottom:42px}
+  .sec-head h2{margin:16px 0 14px}
+
+  /* ---------- Cards ---------- */
+  .grid{display:grid;gap:20px}
+  .g-3{grid-template-columns:repeat(3,1fr)}
+  .g-2{grid-template-columns:repeat(2,1fr)}
+
+  .card{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);padding:24px;transition:transform .16s var(--ease),box-shadow .16s var(--ease)}
+  .card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow)}
+  .card .ic{width:40px;height:40px;border-radius:var(--radius);border:1.5px solid var(--ink);display:grid;place-items:center;margin-bottom:16px}
+  .card .ic svg{width:21px;height:21px;stroke:var(--ink)}
+  .card h3{margin-bottom:8px}
+  .card p{color:var(--ink-dim);font-size:.95rem;margin:0}
+  .card-link{margin-top:15px;display:inline-flex;align-items:center;gap:7px;font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink);cursor:pointer;background:none;border:0;padding:0;border-bottom:1.5px solid var(--ink)}
+  .card-link svg{width:14px;height:14px;transition:transform .18s var(--ease)}
+  .card-link:hover svg{transform:translateX(4px)}
+
+  .taglist{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+  .pill{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:100px;border:1.5px solid var(--ink);color:var(--ink)}
+  .pill.fill{background:var(--ink);color:#fff}
+
+  /* placeholders reveal grid */
+  .thumb{aspect-ratio:4/3;border-radius:2px;margin-bottom:16px;position:relative;border:1.5px dashed var(--ink);display:grid;place-items:center;background:transparent}
+  .thumb span.ph{font-family:"Space Mono",monospace;font-size:11px;color:var(--ink-faint)}
+  .thumb .num{position:absolute;top:8px;left:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.4rem;color:var(--ink);opacity:.14}
+  .price{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink-dim);margin-top:12px}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:46px;align-items:start}
+  .portrait{aspect-ratio:4/5;border-radius:var(--radius);position:relative;border:1.5px solid var(--ink);background:transparent;display:grid;place-items:center;text-align:center;box-shadow:var(--shadow)}
+  .portrait .ph{font-family:"Space Mono",monospace;font-size:12px;color:var(--ink-faint);max-width:22ch}
+  .portrait .ph b{display:block;font-family:"Caveat",cursive;color:var(--red);font-size:2rem;margin-bottom:6px;font-weight:700}
+  .facts{display:grid;gap:0;margin-top:24px;border:1.5px solid var(--ink);border-radius:var(--radius);background:#fff}
+  .fact{display:flex;gap:16px;padding:15px 18px;border-bottom:1.5px solid var(--ink)}
+  .fact:last-child{border-bottom:0}
+  .fact .k{font-family:"Space Mono",monospace;font-size:11px;color:var(--ink);white-space:nowrap;letter-spacing:.05em;padding-top:3px;min-width:96px}
+  .fact .v{color:var(--ink-dim);font-size:.94rem}
+
+  /* ---------- Banner ---------- */
+  .banner{margin-top:8px;border:1.5px solid var(--ink);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);padding:38px 40px;display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+  .banner h2{font-size:clamp(1.5rem,2.7vw,2rem)}
+  .banner p{color:var(--ink-dim);margin:8px 0 0}
+
+  /* ---------- Note box ---------- */
+  .notebox{border:1.5px solid var(--ink);border-left:5px solid var(--red);border-radius:var(--radius);background:#fff;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;margin-bottom:34px}
+  .notebox svg{width:20px;height:20px;stroke:var(--ink);flex:0 0 auto;margin-top:2px}
+  .notebox p{margin:0;color:var(--ink-dim);font-size:.95rem}
+  .notebox b{color:var(--ink)}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:minmax(0,640px);gap:24px}
+  .contact-card{background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);padding:30px}
+  .contact-card h3{margin-bottom:6px}
+  .contact-card>p{color:var(--ink-dim);font-size:.95rem}
+  .clink{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--ink);border-radius:var(--radius);margin-top:12px;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+  .clink:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-sm)}
+  .clink .ci{width:38px;height:38px;border-radius:var(--radius);border:1.5px solid var(--ink);display:grid;place-items:center;flex:0 0 auto}
+  .clink .ci svg{width:18px;height:18px;stroke:var(--ink)}
+  .clink .ct b{display:block;font-family:"Instrument Sans";font-weight:600;font-size:.96rem}
+  .clink .ct span{font-family:"Space Mono",monospace;font-size:12px;color:var(--ink-faint)}
+  .text-highlight{background:linear-gradient(transparent 54%, #F7D84A 54%);padding:0 .05em}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1.5px solid var(--ink);padding:38px 0 46px;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
+  .foot-nav{display:flex;gap:4px;flex-wrap:wrap}
+  .foot-nav button{background:none;border:0;color:var(--ink-dim);cursor:pointer;font-family:"Space Mono",monospace;font-size:12px;padding:6px 8px;transition:color .18s}
+  .foot-nav button:hover{color:var(--red)}
+  .foot small{color:var(--ink-faint);font-family:"Space Mono",monospace;font-size:11.5px}
+
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:2px}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:860px){
+    .menu{position:fixed;inset:66px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);padding:12px 20px 20px;border-bottom:1.5px solid var(--ink);transform:translateY(-120%);transition:transform .3s var(--ease)}
+    .menu.open{transform:translateY(0)}
+    .menu a{padding:13px 12px;font-size:14px;border-bottom:1px solid var(--grid)}
+    .menu a.active::after{left:12px;bottom:8px;width:22px;right:auto}
+    .burger{display:inline-flex}
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .sketch{order:-1;max-width:380px;margin:0 auto}
+    .about-grid{grid-template-columns:1fr;gap:26px}
+    .portrait{max-width:320px}
+    .g-3,.g-2,.contact-grid{grid-template-columns:1fr}
+    section{padding:54px 0}
+    .banner{padding:28px}
+  }
+  @media(min-width:861px) and (max-width:1040px){ .g-3{grid-template-columns:repeat(2,1fr)} }
+
+  @media(prefers-reduced-motion:no-preference){
+    .xray .draw,.xray .redcircle{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s var(--ease) forwards}
+    .xray .draw:nth-of-type(2){animation-delay:.15s}
+    .xray .redcircle{animation-delay:1.4s;animation-duration:1s}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    .circled::after{transform:scaleX(0);animation:highlight 1.1s var(--ease) .35s forwards}
+    @keyframes highlight{to{transform:scaleX(1)}}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <button class="brand" data-page="home" aria-label="FFRadiologica — home">
+      <span class="brand-mark" aria-hidden="true">
+        <img class="brand-logo" src="logo.png" alt="">
+      </span>
+      <span>FFRadiologica</span>
+    </button>
+    <div class="menu" id="menu">
+      <a data-page="home" class="active">Inizio</a>
+      <a data-page="chisono">Chi sono</a>
+      <a data-page="spettacoli">Spettacoli</a>
+      <a data-page="fumetti">Fumetti</a>
+      <a data-page="shop">Shop</a>
+      <a data-page="contatti">Contattami</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Apri il menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="page is-active hero" id="home">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div style="position:relative">
+        <span class="eyebrow">Il quaderno di FFRadiologica</span>
+        <h1>La Medicina<br>diventa <span class="circled">Spettacolo</span></h1>
+        <p class="lead">Racconto il meraviglioso mondo della <strong>Medicina</strong> e della <strong>Scienza</strong> sul Web attraverso <strong>video</strong> e <strong>fumetti</strong> e dal vivo attraverso spettacoli che mescolano questo incredibile mondo alle mie altre grandi passioni: il <strong>Teatro</strong> e la <strong>Giocoleria</strong>!</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-page="spettacoli">Scopri gli spettacoli
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <a class="btn btn-donate" href="https://paypal.me/fariolif" target="_blank" rel="noopener">Offrimi un caffè
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></a>
+          <button class="btn btn-ghost" data-page="contatti">Contattami</button>
+        </div>
+        <p class="foot-hint">// per scuole, festival della scienza, biblioteche e curiosi di ogni età</p>
+      </div>
+
+      <div class="sketch">
+        <div class="sketch-inner">
+          <svg class="xray" viewBox="0 0 300 360" aria-hidden="true">
+            <line class="draw" x1="150" y1="52" x2="150" y2="316" style="stroke-width:5"/>
+            <path class="draw" d="M150 78 C120 82 92 90 82 116"/>
+            <path class="draw" d="M150 78 C180 82 208 90 218 116"/>
+            <path class="draw" d="M150 108 C112 112 78 122 66 152"/>
+            <path class="draw" d="M150 108 C188 112 222 122 234 152"/>
+            <path class="draw" d="M150 140 C108 145 72 156 62 190"/>
+            <path class="draw" d="M150 140 C192 145 228 156 238 190"/>
+            <path class="draw" d="M150 172 C110 178 78 190 70 222"/>
+            <path class="draw" d="M150 172 C190 178 222 190 230 222"/>
+            <path class="draw" d="M150 204 C116 210 90 220 84 246"/>
+            <path class="draw" d="M150 204 C184 210 210 220 216 246"/>
+            <g class="vert"><circle cx="150" cy="78" r="6"/><circle cx="150" cy="108" r="6"/><circle cx="150" cy="140" r="6"/><circle cx="150" cy="172" r="6"/><circle cx="150" cy="204" r="6"/><circle cx="150" cy="236" r="6"/></g>
+            <path class="heart" d="M126 176 c-6 -8 -20 -5 -20 6 c0 9 12 15 20 22 c8 -7 20 -13 20 -22 c0 -11 -14 -14 -20 -6 z"/>
+            <path class="redcircle" d="M100 168 C96 152 128 146 150 152 C168 157 168 186 150 196 C130 206 104 200 102 182"/>
+          </svg>
+          <span class="sk-tag tl">TORACE</span>
+          <span class="sk-tag tr">L | R</span>
+          <span class="sk-tag bl">kV 66 · mAs 4</span>
+          <span class="sk-hand hand">il cuore ♥</span>
+        </div>
+        <div class="sketch-cap">// disegnato a mano, promesso</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:24px">
+    <div class="grid g-3">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h20M4 4v11a3 3 0 003 3h10a3 3 0 003-3V4M9 22h6M12 18v4"/></svg></div>
+        <h3>Spettacoli per le scuole</h3>
+        <p>Racconti dal vivo su raggi X, ossa e immagini mediche, pensati per ogni fascia d'età.</p>
+        <button class="card-link" data-page="spettacoli">Vedi la lista <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg></div>
+        <h3>Fumetti</h3>
+        <p>La radiologia illustrata: strisce e vignette per spiegare la scienza con il sorriso.</p>
+        <button class="card-link" data-page="fumetti">Sfoglia i fumetti <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
+        <h3>Oggetti a tema</h3>
+        <p>Gadget e modelli radiologici, molti stampati in 3D. Una vetrina di cose che posso realizzare.</p>
+        <button class="card-link" data-page="shop">Guarda lo shop <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:24px">
+    <div class="banner">
+      <div>
+        <h2>Porta FFRadiologica nella tua scuola</h2>
+        <p>Uno spettacolo, un laboratorio o un incontro su misura per la tua classe.</p>
+      </div>
+      <button class="btn btn-primary" data-page="contatti">Richiedi informazioni
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHI SONO ============ -->
+<section class="page" id="chisono">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Chi sono</span><h2>Ciao, sono [il tuo nome]</h2></div>
+    <div class="about-grid">
+      <div class="portrait"><div class="ph"><b>[foto]</b>Sostituisci con una tua foto — in verticale rende meglio qui</div></div>
+      <div>
+        <p class="lead" style="color:var(--ink);margin-bottom:18px">Da [professione: es. tecnico di radiologia] a divulgatore: con FFRadiologica trasformo il mondo delle immagini mediche in qualcosa che si può capire, guardare e vivere dal vivo.</p>
+        <p>Racconta qui la tua storia: come è nata FFRadiologica, perché ti appassiona la radiologia e cosa ti piace far scoprire alle persone. Parla del tuo percorso, dei luoghi in cui hai portato i tuoi spettacoli e di cosa rende speciale il tuo modo di divulgare. Questo testo è un esempio: personalizzalo con le tue parole.</p>
+        <p>Puoi chiudere con un invito: se vuoi collaborare, invitarmi a scuola o a un evento, scrivimi — sarò felice di conoscerti.</p>
+        <div class="facts">
+          <div class="fact"><span class="k">MI OCCUPO DI</span><span class="v">Divulgazione scientifica su radiologia e immagini mediche</span></div>
+          <div class="fact"><span class="k">DOVE</span><span class="v">Scuole, festival, biblioteche e social — [la tua zona / online]</span></div>
+          <div class="fact"><span class="k">SEGUIMI SU</span><span class="v">[Instagram] · [TikTok] · [YouTube] — inserisci i tuoi profili</span></div>
+        </div>
+        <div class="cta-row" style="margin-top:24px">
+          <button class="btn btn-ghost" data-page="spettacoli">Cosa posso portare a scuola</button>
+          <button class="btn btn-primary" data-page="contatti">Scrivimi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPETTACOLI ============ -->
+<section class="page" id="spettacoli">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Spettacoli</span><h2>Cosa posso portare nella tua scuola</h2>
+      <p class="lead">Una selezione di spettacoli e incontri sulla radiologia, adattabili all'età dei ragazzi e al tempo a disposizione. Questi sono esempi: sostituiscili con i tuoi titoli reali.</p></div>
+    <div class="grid g-2">
+      <div class="card"><div class="taglist"><span class="pill fill">Scuola primaria</span><span class="pill">~60 min</span></div><h3>Viaggio dentro il corpo umano</h3><p>Un tuffo tra ossa, organi e raggi X: come facciamo a vedere dentro il corpo senza aprirlo? Un racconto interattivo con immagini vere e tanta meraviglia.</p><button class="card-link" data-page="contatti">Richiedi questo spettacolo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="taglist"><span class="pill fill">Primaria · Secondaria</span><span class="pill">~75 min</span></div><h3>La scoperta dei raggi X</h3><p>La storia di una delle invenzioni che ha cambiato la medicina: da un esperimento casuale alla prima radiografia della storia. Scienza, avventura e un pizzico di fortuna.</p><button class="card-link" data-page="contatti">Richiedi questo spettacolo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="taglist"><span class="pill fill">Secondaria</span><span class="pill">~90 min</span></div><h3>Dentro le immagini: TAC, risonanza ed ecografia</h3><p>Non solo raggi X. Come funzionano le tecniche che i medici usano ogni giorno, spiegate in modo semplice, con esempi e dimostrazioni.</p><button class="card-link" data-page="contatti">Richiedi questo spettacolo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="taglist"><span class="pill fill">Tutte le età</span><span class="pill">Laboratorio</span></div><h3>Le ossa raccontano</h3><p>Un laboratorio in cui lo scheletro diventa protagonista: riconoscere le ossa, capire a cosa servono e scoprire cosa svela una radiografia.</p><button class="card-link" data-page="contatti">Richiedi questo spettacolo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+    <div class="banner" style="margin-top:26px">
+      <div><h2>Non trovi quello che cerchi?</h2><p>Posso costruire un incontro su misura per la tua classe o il tuo evento.</p></div>
+      <button class="btn btn-primary" data-page="contatti">Parliamone</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUMETTI ============ -->
+<section class="page" id="fumetti">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Fumetti</span><h2>La radiologia, illustrata</h2>
+      <p class="lead">Strisce e vignette per raccontare la scienza delle immagini mediche con leggerezza. Aggiungi qui i tuoi fumetti man mano che li crei — ogni riquadro è una card che puoi duplicare.</p></div>
+    <div class="grid g-3">
+      <div class="card"><div class="thumb"><span class="num">01</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+      <div class="card"><div class="thumb"><span class="num">02</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+      <div class="card"><div class="thumb"><span class="num">03</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+      <div class="card"><div class="thumb"><span class="num">04</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+      <div class="card"><div class="thumb"><span class="num">05</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+      <div class="card"><div class="thumb"><span class="num">06</span><span class="ph">[immagine fumetto]</span></div><h3>Titolo del fumetto</h3><p>Una riga di descrizione o la battuta della striscia.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="page" id="shop">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Shop · vetrina</span><h2>Oggetti a tema radiologico</h2></div>
+    <div class="notebox">
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <p><b>Questa è una vetrina, non un negozio automatico.</b> Ti mostro cosa posso realizzare — molti oggetti sono stampati in 3D. Se qualcosa ti interessa, scrivimi: organizziamo insieme realizzazione, tempi e spedizione.</p>
+    </div>
+    <div class="grid g-3">
+      <div class="card"><div class="thumb"><span class="ph">[foto oggetto]</span></div><h3>Portachiavi vertebra 3D</h3><p>Una vertebra in miniatura, stampata in 3D. Disponibile in vari colori.</p><div class="price">Prezzo su richiesta</div><button class="card-link" data-page="contatti">Scrivimi per averlo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="thumb"><span class="ph">[foto oggetto]</span></div><h3>Cranio da scrivania</h3><p>Modello anatomico stampato in 3D, perfetto come soprammobile scientifico.</p><div class="price">Prezzo su richiesta</div><button class="card-link" data-page="contatti">Scrivimi per averlo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="thumb"><span class="ph">[foto oggetto]</span></div><h3>Spilla a tema raggi X</h3><p>Un piccolo accessorio per chi ama la radiologia. Ideale come regalo.</p><div class="price">Prezzo su richiesta</div><button class="card-link" data-page="contatti">Scrivimi per averla <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="thumb"><span class="ph">[foto oggetto]</span></div><h3>Stampa radiografica d'autore</h3><p>Una radiografia rielaborata in chiave artistica, pronta da appendere.</p><div class="price">Prezzo su richiesta</div><button class="card-link" data-page="contatti">Scrivimi per averla <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="thumb"><span class="ph">[foto oggetto]</span></div><h3>Segnalibro "osso" 3D</h3><p>Un segnalibro a forma di osso lungo, leggero e resistente.</p><div class="price">Prezzo su richiesta</div><button class="card-link" data-page="contatti">Scrivimi per averlo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="card"><div class="thumb"><span class="ph">[la tua idea]</span></div><h3>Su misura per te</h3><p>Hai un'idea a tema radiologico? Raccontamela e vediamo se posso realizzarla.</p><div class="price">Progetto personalizzato</div><button class="card-link" data-page="contatti">Proponi un'idea <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTATTI ============ -->
+<section class="page" id="contatti">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Contattami</span><h2><span class="text-highlight">Scrivimi</span>, ti rispondo</h2>
+      <p class="lead">Per informazioni riguardo a collaborazioni, spettacoli, se ti interessa qualche cosa dello shop o anche solo per fare due chiacchiere sulla medicina. Cercherò di risponderti il prima possibile!</p></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Contatti diretti</h3><p>Il modo più veloce per raggiungermi.</p>
+        <a class="clink" href="mailto:ffradiologica@gmail.com"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span class="ct"><b>Email</b><span>ffradiologica@gmail.com</span></span></a>
+        <a class="clink" href="#"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="ct"><b>Instagram</b><span>@ffradiologica</span></span></a>
+        <a class="clink" href="#"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8v8a3 3 0 11-3-3M14 4c.5 3 2.5 4.5 5 4.8"/><path d="M14 4v10"/></svg></span><span class="ct"><b>TikTok</b><span>@ffradiologica</span></span></a>
+        <a class="clink" href="https://paypal.me/fariolif" target="_blank" rel="noopener"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span><span class="ct"><b>Offrimi un caffè</b><span>Supporta FFRadiologica con una donazione</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="cursor:default;margin-bottom:8px">
+        <span class="brand-mark" aria-hidden="true"><img class="brand-logo" src="logo.png" alt=""></span>
+        <span>FFRadiologica</span>
+      </div>
+      <small>La Medicina diventa Spettacolo.</small>
+    </div>
+    <nav class="foot-nav" aria-label="Navigazione a piè di pagina">
+      <button data-page="home">Inizio</button><button data-page="chisono">Chi sono</button><button data-page="spettacoli">Spettacoli</button><button data-page="fumetti">Fumetti</button><button data-page="shop">Shop</button><button data-page="contatti">Contattami</button>
+    </nav>
+    <small>© 2026 FFRadiologica</small>
+  </div>
+</footer>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('#menu a');
+  const menu = document.getElementById('menu');
+  const burger = document.getElementById('burger');
+  function showPage(id){
+    let found = false;
+    pages.forEach(p=>{ const on = p.id===id; p.classList.toggle('is-active',on); if(on) found=true; });
+    if(!found){ document.getElementById('home').classList.add('is-active'); id='home'; }
+    navLinks.forEach(a=> a.classList.toggle('active', a.dataset.page===id));
+    menu.classList.remove('open'); burger.setAttribute('aria-expanded','false');
+    window.scrollTo({top:0});
+  }
+  document.addEventListener('click', e=>{ const el=e.target.closest('[data-page]'); if(el){ e.preventDefault(); showPage(el.dataset.page); } });
+  burger.addEventListener('click', ()=>{ const open=menu.classList.toggle('open'); burger.setAttribute('aria-expanded', open?'true':'false'); });
+</script>
+</body>
+</html>
