@@ -147,6 +147,11 @@
   .card-link{margin-top:15px;display:inline-flex;align-items:center;gap:7px;font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink);cursor:pointer;background:none;border:0;padding:0;border-bottom:1.5px solid var(--ink)}
   .card-link svg{width:14px;height:14px;transition:transform .18s var(--ease)}
   .card-link:hover svg{transform:translateX(4px)}
+  .card-status{margin-top:15px;margin-bottom:0;font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink-faint)}
+  .split-cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:26px}
+  .cta-panel{background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+  .cta-panel h2{font-size:clamp(1.45rem,2.4vw,2rem);margin-bottom:12px}
+  .cta-panel p{color:var(--ink-dim);margin-bottom:18px}
 
   .taglist{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
   .pill{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:100px;border:1.5px solid var(--ink);color:var(--ink)}
@@ -155,6 +160,8 @@
   /* placeholders reveal grid */
   .thumb{aspect-ratio:4/3;border-radius:2px;margin-bottom:16px;position:relative;border:1.5px dashed var(--ink);display:grid;place-items:center;background:transparent}
   .thumb img{width:100%;height:100%;object-fit:cover}
+  .comic-thumb{border-style:solid;overflow:hidden;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+  .comic-thumb:hover{transform:translate(-1px,-1px);box-shadow:var(--shadow-sm)}
   .thumb span.ph{font-family:"Space Mono",monospace;font-size:11px;color:var(--ink-faint)}
   .thumb .num{position:absolute;top:8px;left:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.4rem;color:var(--ink);opacity:.14}
   .price{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--ink-dim);margin-top:12px}
@@ -206,6 +213,11 @@
   .foot-nav{display:flex;gap:4px;flex-wrap:wrap}
   .foot-nav a{background:none;border:0;color:var(--ink-dim);cursor:pointer;font-family:"Space Mono",monospace;font-size:12px;padding:6px 8px;transition:color .18s}
   .foot-nav a:hover{color:var(--red)}
+  .foot-social{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:"Space Mono",monospace;font-size:12px}
+  .foot-social span{color:var(--ink-faint)}
+  .foot-social a{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:30px;border:1.5px solid var(--ink);border-radius:var(--radius);background:#fff;color:var(--ink);font-weight:700;transition:transform .15s var(--ease),box-shadow .15s var(--ease),color .15s var(--ease)}
+  .foot-social svg{width:17px;height:17px;stroke:currentColor}
+  .foot-social a:hover{color:var(--red);transform:translate(-1px,-1px);box-shadow:var(--shadow-sm)}
   .foot small{color:var(--ink-faint);font-family:"Space Mono",monospace;font-size:11.5px}
 
   a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:2px}
@@ -222,7 +234,7 @@
     .hero .sketch{width:calc(100vw - 48px)}
     .about-grid{grid-template-columns:1fr;gap:26px}
     .portrait{max-width:320px}
-    .g-3,.g-2,.contact-grid{grid-template-columns:1fr}
+    .g-3,.g-2,.contact-grid,.split-cta{grid-template-columns:1fr}
     section{padding:54px 0}
     .banner{padding:28px}
     .wide-note{padding:24px}
