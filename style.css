@@ -105,7 +105,7 @@
   .foot-hint{margin-top:26px;color:var(--ink-faint);font-family:"Space Mono",monospace;font-size:12.5px}
 
   /* sketch frame */
-  .sketch{position:relative;width:100%;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+  .sketch{position:relative;width:100%;min-width:0;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
   .sketch-inner{
     position:relative;width:100%;border-radius:2px;overflow:hidden;aspect-ratio:5/6;
     background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
@@ -213,7 +213,8 @@
     .menu a.active::after{left:12px;bottom:8px;width:22px;right:auto}
     .burger{display:inline-flex}
     .hero-grid{grid-template-columns:1fr;gap:38px}
-    .sketch{order:-1;width:100%;max-width:380px;margin:0 auto}
+    .sketch{order:-1;width:min(100%, 380px);max-width:none;justify-self:center;margin:0 auto}
+    .hero .sketch{width:calc(100vw - 48px)}
     .about-grid{grid-template-columns:1fr;gap:26px}
     .portrait{max-width:320px}
     .g-3,.g-2,.contact-grid{grid-template-columns:1fr}
